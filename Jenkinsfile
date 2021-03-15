@@ -1,7 +1,17 @@
 #!groovy
-stage "Trigger Downstream Build"
-try {
-  build job: "../facepalm/${env.BRANCH_NAME}", wait: false
-} catch (e) {
-  // Ignoring
+
+timestamps {
+    node('docker') {
+        checkout scm
+        
+        docker.withRegistry('https://registry.hub.docker.com', 'jenkins-docker-credentials') {
+
+            // Build and push the Docker image.
+            stage('Build Docker Image') {
+                dockerImage = docker.build("discoenv/notifications-db:${env.BUILD_TAG}")
+                dockerImage.push();
+                dockerImage.push('dev');
+            }
+        }
+    }
 }
