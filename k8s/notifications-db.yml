@@ -10,7 +10,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: update-de-db
+      - name: update-notifications-db
         image: harbor.cyverse.org/de/notifications-db
         imagePullPolicy: Always
         env:
