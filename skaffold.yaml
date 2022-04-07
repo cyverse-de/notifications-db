@@ -1,7 +1,7 @@
 apiVersion: skaffold/v1
 kind: Config
 metadata:
-  name: notifications-db.yml
+  name: notifications-db
 deploy:
   kubectl:
     manifests:
