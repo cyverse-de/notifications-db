@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: notifications-db
 spec:
-  ttlSecondsAfterFinished: 259200 
+  ttlSecondsAfterFinished: 259200
   template:
     metadata:
       name: notifications-db
@@ -13,6 +13,15 @@ spec:
       - name: update-notifications-db
         image: harbor.cyverse.org/de/notifications-db
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "256m"
+            memory: "128Mi"
+            ephemeral-storage: "1Gi"
+          limits:
+            cpu: "512m"
+            memory: "256Mi"
+            ephemeral-storage: "1Gi"
         env:
           - name: NOTIFICATIONS_DATABASE_URI
             valueFrom:
